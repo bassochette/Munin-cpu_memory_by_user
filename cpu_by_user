@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 
 
  HOME=${homefolder:-/home}
@@ -33,7 +33,7 @@
  for user in $USERS
  do
      
-     echo ${user}.type ABSOLUTE
-     echo ${user}.cpu `cat $TMPFILE | grep $user | awk 'BEGIN{sum =0} {sum +=$9;  } END {print sum;}'`
+     echo ${user}.type GAUGE
+     echo ${user}.value `cat $TMPFILE | grep $user | awk 'BEGIN{sum =0} {sum +=$9;  } END {print sum;}'`
  done
  rm -rf $TMPFILE

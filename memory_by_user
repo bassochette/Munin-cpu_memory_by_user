@@ -1,15 +1,15 @@
- #!/bin/bash
+#!/bin/sh
 
 
- HOME=${homefolder:-/home}
- USERS=$(cat /etc/passwd | grep $HOME | cut -d":" -f1;)
- TMPFILE=${tmpfile:-/tmp/plop2}
+HOME=${homefolder:-/home}
+USERS=$(cat /etc/passwd | grep $HOME | cut -d":" -f1;)
+TMPFILE=${tmpfile:-/tmp/plop2}
 
 
- top -b -n 1 > $TMPFILE
+top -b -n 1 > $TMPFILE
  
- case $1 in
- 	config)
+case $1 in
+	config)
  		echo 'graph_title Memory usage, by user';
  		echo 'graph_args --base 1000 -r --lower-limit 0';
  		echo 'graph_category system';
@@ -30,10 +30,10 @@
  esac
 
 
- for user in $USERS
- do
+for user in $USERS
+do
      
-     echo ${user}.type absolute
-     echo ${user}.value `cat $TMPFILE | grep $user |  awk 'BEGIN{sum =0} {sum +=$10;} END {print sum;}'`
- done
+    echo ${user}.type GAUGE
+    echo ${user}.value `cat $TMPFILE | grep $user |  awk 'BEGIN{sum =0} {sum +=$10;} END {print sum;}'`
+done
  rm -rf $TMPFILE
