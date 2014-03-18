@@ -17,7 +17,7 @@ case $1 in
 		echo 'graph_info This graph shows CPU usage for every users matching the condition in configuration';
 		echo 'graph_vlabel %'
 		echo 'graph_period second'
-		echo "graph_order $USERS"
+		echo "graph_order $USERS total"
 
 		for user in $USERS
 		do
@@ -36,8 +36,8 @@ do
     echo ${user}.type GAUGE
     cpu=`cat $TMPFILE | grep $user | awk 'BEGIN{sum =0} {sum +=$9;  } END {print sum;}'`;
     echo ${user}.value $cpu
- 	total=$($total+$cpu);
+ 	total=$(total + cpu);
 done
-
+echo 'total.type GAUGE'
 echo "total.value $total"
 rm -rf $TMPFILE
