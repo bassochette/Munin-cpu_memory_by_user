@@ -7,7 +7,7 @@ TMPFILE=${tmpfile:-/tmp/plop2}
 
 
 top -b -n 1 > $TMPFILE
- 
+total=0;
 case $1 in
 	config)
  		echo 'graph_title Memory usage, by user';
@@ -25,7 +25,8 @@ case $1 in
  			echo "${user}.info memory usage for user $user"
  			
  		done
-
+ 		echo "total.label total"
+		echo "total.info memory usage for every users"
  		exit 0;;
  esac
 
@@ -33,7 +34,10 @@ case $1 in
 for user in $USERS
 do
      
-    echo ${user}.type GAUGE
-    echo ${user}.value `cat $TMPFILE | grep $user |  awk 'BEGIN{sum =0} {sum +=$10;} END {print sum;}'`
+    echo '${user}.type GAUGE'
+    mem=`cat $TMPFILE | grep $user |  awk 'BEGIN{sum =0} {sum +=$10;} END {print sum;}'`;
+    echo '${user}.value $mem'
+    total=$($total+$mem)
 done
- rm -rf $TMPFILE
+echo "total.value $total"
+rm -rf $TMPFILE
