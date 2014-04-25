@@ -30,7 +30,7 @@ case $1 in
  		exit 0;;
  esac
 
-total=0
+
 for user in $USERS
 do
      
