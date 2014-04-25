@@ -1,13 +1,13 @@
 #!/bin/bash
 
 
-HOME=${homefolder:-/home}
-USERS=$(cat /etc/passwd | grep $HOME | cut -d":" -f1;)
+HOMEFOLDER=${homefolder:-/home}
+USERS=$(cat /etc/passwd | grep $HOMEFOLDER | cut -d":" -f1;)
 TMPFILE=${tmpfile:-/tmp/plop}
 
 
 top -b -n 1 > $TMPFILE
-#total="";
+total=0;
  
 case $1 in
 	config)
