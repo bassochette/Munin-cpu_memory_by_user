@@ -29,14 +29,14 @@ case $1 in
 		exit 0;;
 esac
 
-
+total=0
 for user in $USERS
 do
      
     echo ${user}.type GAUGE
     cpu=`cat $TMPFILE | grep $user | awk 'BEGIN{sum =0} {sum +=$9;  } END {print sum;}'`;
     echo ${user}.value $cpu
- 	total=$(total + $cpu);
+ 	total=$($total + $cpu);
 done
 echo 'total.type GAUGE'
 echo "total.value $total"
