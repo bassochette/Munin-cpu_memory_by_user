@@ -38,7 +38,7 @@ do
     echo "${user}.type GAUGE"
     mem=`cat $TMPFILE | grep $user |  awk 'BEGIN{sum =0} {sum +=$10;} END {print sum;}'`;
     echo "${user}.value $mem"
-    total=`echo "$totalt + $mem" | bc `
+    total=`echo "$total + $mem" | bc `
 done
 echo "total.type GAUGE"
 echo "total.value $total"
